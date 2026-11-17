@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Versi: Milestone 2 - Kelompok 3 (Zaidan Fakhri)
 # deploy.sh - Master Idempotent Installer
 set -euo pipefail
 IFS=$'\n\t'
