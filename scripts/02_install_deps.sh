@@ -38,6 +38,7 @@ if [ -z "${OS_ID:-}" ]; then
 }
 
 case "$OS_ID" in
+    pilih sesuai os yang dipake
     rhel|rocky|almalinux|centos|fedora)
         echo "[INFO] Memasang paket pada keluarga RHEL..."
         run_root dnf install -y nginx mariadb-server python3-pip
