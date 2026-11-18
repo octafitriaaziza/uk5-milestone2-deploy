@@ -1,0 +1,21 @@
+[Unit]
+Description=Enterprise Multi-Tier Backend Application Service
+After=network.target mariadb.service
+Wants=mariadb.service
+
+[Service]
+Type=simple
+User=webapp
+Group=webapp
+WorkingDirectory=/var/www/webapp
+ExecStart=/usr/bin/python3 /var/www/webapp/app.py
+Restart=always
+RestartSec=5s
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+ReadWritePaths=/var/www/webapp/data /var/log/webapp
+
+[Install]
+WantedBy=multi-user.target
