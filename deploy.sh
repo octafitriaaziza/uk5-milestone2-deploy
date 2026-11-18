@@ -20,6 +20,7 @@ echo "[INFO] Memulai deployment..."
 
 # 1. Deteksi distro
 if [ -f /etc/os-release ]; then
+# shellcheck source=/etc/os-release
   . /etc/os-release
   OS_ID=$ID
 else
