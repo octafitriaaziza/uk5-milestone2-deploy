@@ -88,7 +88,7 @@ else
 fi
 
 # --- 5. Jalankan service ---
-if [ -f "${APP_FILE}" ]; then
+if run_root test -f "${APP_FILE}"; then
   run_root systemctl enable --now webapp.service
   if [ "${unit_changed}" -eq 1 ] || [ "${app_changed}" -eq 1 ]; then
     run_root systemctl restart webapp.service
