@@ -71,4 +71,3 @@ esac
 run_root systemctl enable --now mariadb
 run_root systemctl enable --now nginx
 echo "[SUCCESS] Paket terpasang dan service mariadb serta nginx aktif."
-EOF
