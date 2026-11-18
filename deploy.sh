@@ -48,6 +48,7 @@ MODULES=(
   "$SCRIPT_DIR/scripts/01_setup_users.sh"
   "$SCRIPT_DIR/scripts/02_install_deps.sh"
   "$SCRIPT_DIR/scripts/03_configure_sec.sh"
+  "$SCRIPT_DIR/scripts/04_deploy_services.sh"
 )
 
 for module in "${MODULES[@]}"; do
