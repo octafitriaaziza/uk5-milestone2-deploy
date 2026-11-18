@@ -18,6 +18,7 @@ SERVICE_SRC="${DEPLOY_ROOT}/systemd/webapp.service"
 SERVICE_DST="/etc/systemd/system/webapp.service"
 NGINX_TPL="${DEPLOY_ROOT}/configs/nginx.conf.template"
 NGINX_DST="/etc/nginx/conf.d/webapp.conf"
+APP_SRC="${DEPLOY_ROOT}/app/app.py"
 APP_FILE="/var/www/webapp/app.py"
 
 # --- Muat .env ---
@@ -72,10 +73,24 @@ if ! run_root nginx -t; then
   exit 1
 fi
 
-# --- 4. Jalankan service ---
+# --- 4. Pasang aplikasi (hanya jika berbeda) ---
+app_changed=0
+if [ -f "${APP_SRC}" ]; then
+  if ! run_root cmp -s "${APP_SRC}" "${APP_FILE}"; then
+    run_root install -o webapp -g webapp -m 0640 "${APP_SRC}" "${APP_FILE}"
+    app_changed=1
+    success "app.py dipasang/diperbarui di ${APP_FILE}"
+  else
+    info "app.py sudah sesuai"
+  fi
+else
+  warn "${APP_SRC} tidak ditemukan di repositori"
+fi
+
+# --- 5. Jalankan service ---
 if [ -f "${APP_FILE}" ]; then
   run_root systemctl enable --now webapp.service
-  if [ "${unit_changed}" -eq 1 ]; then
+  if [ "${unit_changed}" -eq 1 ] || [ "${app_changed}" -eq 1 ]; then
     run_root systemctl restart webapp.service
   fi
 else

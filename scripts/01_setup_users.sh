@@ -41,7 +41,7 @@ fi
 # Buat direktori hanya jika belum ada, lalu laporkan statusnya.
 ensure_dir() {
     local dir="$1"
-    if [ -d "$dir" ]; then
+    if run_root test -d "$dir"; then
         echo "[INFO] Direktori ${dir} sudah ada."
     else
         run_root mkdir -p "$dir"
